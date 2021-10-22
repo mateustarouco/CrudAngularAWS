@@ -10,6 +10,11 @@
       "StackName": "amplify-testelambda-dev-131549",
       "StackId": "arn:aws:cloudformation:us-east-1:719403463210:stack/amplify-testelambda-dev-131549/297baf10-328a-11ec-853a-0e8b22d12a1f",
       "AmplifyAppId": "d1v8j6m277uqks"
+    },
+    "categories": {
+      "auth": {
+        "testelambda460fc1dc": {}
+      }
     }
   }
 }

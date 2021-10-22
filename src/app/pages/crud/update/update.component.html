@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button color="primary" [routerLink]="['/get']">voltar</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-4" >
+    <h3>Editar usuário</h3>
+  </div>
+  <div class="row mt-4">
+    <form [formGroup]='updateItem' action="submit" (ngSubmit)="updateUser()">
+      <div class="container">
+        <div class="row">
+          <mat-form-field>
+            <input type="text" matInput formControlName="name" placeholder="Nome" [autofocus]="true" appLowerCase/>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" matInput formControlName="description" placeholder="Descrição" [autofocus]="true" appLowerCase/>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary"> Atualizar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

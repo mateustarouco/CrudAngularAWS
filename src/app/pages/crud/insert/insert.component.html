@@ -11,14 +11,15 @@
       <div class="container">
         <div class="row p-5">
           <mat-form-field>
-            <input type="text" matInput formControlName="name" placeholder="Nome" [autofocus]="true" appLowerCase/>
+            <input type="text" matInput formControlName="name" placeholder="Nome" [autofocus]="true" />
             <mat-error>o nome é obrigatório</mat-error>
             </mat-form-field>
           <mat-form-field>
             <input type="text" matInput formControlName="description" placeholder="Descrição" [autofocus]="true"
-                   appLowerCase/>
+            />
             <mat-error>a descrição é Obrigatória </mat-error>
           </mat-form-field>
+
           <button mat-raised-button color="primary" [disabled]="insertItem.invalid "> inserir</button>
         </div>
       </div>
