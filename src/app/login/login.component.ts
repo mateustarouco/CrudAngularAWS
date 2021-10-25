@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loading = false
   status = 0
   username : any
-  constructor(private authService : AutenticatedService ,
+  constructor(public authService : AutenticatedService ,
               private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
@@ -38,15 +38,13 @@ export class LoginComponent implements OnInit {
   login(){
     this.loading = true
     fromPromise(this.authService.signIn(this.loginForm.value.email , this.loginForm.value.password )).subscribe(item =>{
-      console.log(item)
-      this.loading = false
     })
   }
 
   signUp(){
     this.authService.signUpUser(this.newUserForm.value.email ,this.newUserForm.value.password )
     this.username = this.newUserForm.value.email
-    this.status = 2
+
   }
 
   confirmSignUp(){

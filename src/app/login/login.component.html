@@ -1,5 +1,5 @@
 <div class="background"></div>
-<mat-progress-bar *ngIf="loading" color="primary" mode="indeterminate" style="position:  absolute; top: 0"></mat-progress-bar>
+<mat-progress-bar *ngIf="authService.loading" color="primary" mode="indeterminate" style="position:  absolute; top: 0"></mat-progress-bar>
 <div class="container">
   <div class="row d-flex justify-content-center">
     <div class="col-6 login">
@@ -18,17 +18,17 @@
                 <input type="password" matInput formControlName="password" placeholder="Senha" [autofocus]="true"/>
                 <mat-error>Senha Obrigatória</mat-error>
               </mat-form-field>
-              <p *ngIf="errormessage != ''">{{errormessage}}</p>
+              <p *ngIf="authService.errorCode != ''">{{authService.errorCode}}</p>
               <div class="col d-flex justify-content-center " >
+              <button class="m-2 order-1" mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()"> entrar</button>
               <button class="m-2" mat-raised-button color="accent" (click)="status = 1">Inscrever-se</button>
-              <button class="m-2" mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()"> entrar</button>
               </div>
               <a  class="p-2" href="">Esqueci minha senha</a>
             </div>
           </div>
         </form>
 
-        <form [formGroup]='newUserForm' action="submit"*ngIf="status == 1">
+        <form [formGroup]='newUserForm' action="submit" *ngIf="status == 1 && !authService.inConfirmation">
           <div class="container">
             <div class="row pt-4">
               <div class="div d-flex justify-content-between">
@@ -52,6 +52,7 @@
                 <input type="password" matInput formControlName="password" placeholder="Senha" [autofocus]="true"/>
                 <mat-error>Senha Obrigatória</mat-error>
               </mat-form-field>
+              <p *ngIf="authService.errorCode != ''">{{authService.errorCode}}</p>
               <div class="col d-flex justify-content-center ">
                 <button class="m-2" mat-raised-button color="primary" (click)="signUp()" [disabled]="loginForm.invalid"> entrar</button>
               </div>
@@ -59,13 +60,14 @@
           </div>
         </form>
 
-        <form [formGroup]='confirmForm' action="submit" (ngSubmit)="login()" *ngIf="status == 2">
+        <form [formGroup]='confirmForm' action="submit" (ngSubmit)="login()" *ngIf="authService.inConfirmation">
           <div class="container">
             <div class="row pt-4">
               <mat-form-field>
                 <input type="text" matInput formControlName="code" placeholder="Código de Confirmação" [autofocus]="true" autocomplete="off"/>
                 <mat-error>E-mail Obrigatório</mat-error>
               </mat-form-field>
+              <p *ngIf="authService.errorCode != ''">{{authService.errorCode}}</p>
               <div class="col d-flex justify-content-center " >
                 <button class="m-2" mat-raised-button color="accent" (click)="confirmSignUp()">confirmar</button>
               </div>

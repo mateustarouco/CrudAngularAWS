@@ -18,8 +18,10 @@ export class AutenticatedService {
     private amplifyService: AmplifyService) {
   }
 
+  errorCode = ''
   userData: any
-
+  public loading = false
+  inConfirmation = false
   loadUser(user: any) {
     fromPromise(this.amplifyService.auth().currentAuthenticatedUser({bypassCache: true})).subscribe(resp => {
       const result: any = resp
@@ -43,38 +45,55 @@ export class AutenticatedService {
   }
 
 async sigOut(){
+    this.loading = true
     await fromPromise(Auth.signOut()).subscribe(item=>{
+      this.loading = false
+      this.errorCode = ''
+      this.inConfirmation = false
       this.route.navigate(['/login'])
     }, error =>{
-      console.log(error)
+      this.loading = false
+
     })
 }
 
   async signIn(username: string, password: string) {
+    this.loading = true
     await fromPromise(Auth.signIn(username, password)).subscribe(item => {
       this.route.navigate([''])
+      this.loading = false
+      this.errorCode = ''
     }, error => {
-      console.log(error)
+      this.loading = false
+      this.errorCode = 'erro ao Logar, verifique os dados e tente novamente'
     })
   }
 
 
   async signUpUser(username: string, password: string) {
+    this.loading = true
     await fromPromise(Auth.signUp({
       username,
       password
     })).subscribe(item => {
-      console.log(item)
+      this.inConfirmation = true
+      this.errorCode = ''
+      this.loading = false
     }, error => {
-      console.log(error)
+      this.loading = false
+      this.errorCode = 'erro ao criar usuario, verivique os dados e tente novamente'
     })
   }
 
   async confirmSignUp(username: string, code: string) {
+    this.loading = true
     await fromPromise(Auth.confirmSignUp(username, code)).subscribe(item => {
-      console.log(item)
+      this.inConfirmation = false
+      this.loading = false
+      this.errorCode = ''
     }, error => {
-      console.log(error)
+      this.loading = false
+      this.errorCode = 'codigo incorreto ou expirado'
     })
   }
 
